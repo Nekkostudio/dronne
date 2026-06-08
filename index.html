@@ -1,0 +1,813 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dronne — Corretora de Seguros e Negócios | Campinas, SP</title>
+  <meta name="description" content="Dronne Corretora de Seguros: encontramos a melhor cobertura pelo menor preço para o seu perfil. Campinas, SP.">
+
+  <!-- Montserrat via Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ────────────────────────────────────────────────────────────────
+       RESET & TOKENS
+    ──────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @font-face {
+      font-family: 'Nexa';
+      src: local('Nexa Bold'), local('Nexa-Bold'), local('Nexa');
+      font-weight: 700;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'Nexa';
+      src: local('Nexa'), local('Nexa Regular');
+      font-weight: 400;
+      font-style: normal;
+    }
+
+    :root {
+      --navy:   #0A2B5C;
+      --blue:   #1565C0;
+      --cyan:   #00B0F0;
+      --white:  #FFFFFF;
+      --light:  #F4F6FA;
+      --muted:  #6B7280;
+      --border: #E2E8F0;
+      --dark:   #080F1E;
+      --success: #17A34A;
+      --danger:  #DC2626;
+
+      --font-display: 'Nexa', 'Montserrat', sans-serif;
+      --font-body:    'Montserrat', sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --transition: 0.3s ease;
+      --shadow-sm: 0 2px 10px rgba(10,43,92,0.07);
+      --shadow-md: 0 6px 28px rgba(10,43,92,0.13);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      color: var(--navy);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+    .section-badge {
+      display: inline-block;
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--cyan);
+      background: rgba(0,176,240,0.1);
+      border: 1px solid rgba(0,176,240,0.25);
+      padding: 5px 14px; border-radius: 50px; margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 42px); font-weight: 700;
+      color: var(--navy); text-align: center;
+      line-height: 1.2; margin-bottom: 12px;
+    }
+    .section-sub {
+      font-size: clamp(14px, 1.8vw, 17px); color: var(--muted);
+      text-align: center; margin-bottom: 56px;
+      max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: 50px;
+      font-family: var(--font-body); font-weight: 600; font-size: 14px;
+      cursor: pointer; border: 2px solid transparent;
+      transition: all var(--transition); text-decoration: none; white-space: nowrap; line-height: 1;
+    }
+    .btn-cyan { background: var(--cyan); color: var(--white); border-color: var(--cyan); }
+    .btn-cyan:hover { background: #009fd9; border-color: #009fd9; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,176,240,0.38); }
+    .btn-outline-white { background: transparent; color: var(--white); border-color: rgba(255,255,255,0.6); }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-2px); }
+    .btn-white { background: var(--white); color: var(--navy); border-color: var(--white); }
+    .btn-white:hover { background: var(--light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* NAVBAR */
+    .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: var(--white); transition: box-shadow var(--transition); }
+    .navbar.scrolled { box-shadow: 0 2px 20px rgba(10,43,92,0.11); }
+    .navbar-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 72px; display: flex; align-items: center; gap: 32px; }
+    .navbar-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .logo-placeholder { width: 148px; height: 44px; border: 2px dashed rgba(0,176,240,0.45); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; background: var(--light); }
+    .navbar-nav { display: flex; align-items: center; gap: 2px; list-style: none; flex: 1; }
+    .navbar-nav a { display: block; padding: 8px 14px; font-size: 13.5px; font-weight: 500; color: var(--navy); text-decoration: none; border-radius: var(--radius-sm); transition: all var(--transition); white-space: nowrap; }
+    .navbar-nav a:hover { color: var(--cyan); background: rgba(0,176,240,0.06); }
+    .navbar-cta-wrap { flex-shrink: 0; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: all var(--transition); }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--border); padding: 16px 24px 24px; box-shadow: 0 8px 32px rgba(10,43,92,0.1); z-index: 999; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu ul { list-style: none; display: flex; flex-direction: column; gap: 2px; margin-bottom: 16px; }
+    .mobile-menu ul a { display: block; padding: 12px 16px; text-decoration: none; color: var(--navy); font-size: 15px; font-weight: 500; border-radius: var(--radius-sm); transition: all var(--transition); }
+    .mobile-menu ul a:hover { background: var(--light); color: var(--cyan); }
+
+    /* HERO */
+    .hero { min-height: 100vh; background: linear-gradient(140deg, var(--navy) 0%, var(--blue) 100%); display: flex; align-items: center; justify-content: flex-start; position: relative; overflow: hidden; padding: 120px 0 80px; }
+    .hero > .container { width: 100%; margin-left: auto; margin-right: auto; }
+    .hero-shields-bg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; }
+    .sh { fill: none; stroke: white; stroke-width: 1.4; animation: sh-pulse 3.5s ease-in-out infinite; }
+    @keyframes sh-pulse { 0%, 100% { opacity: 0.04; } 50% { opacity: 0.13; } }
+    .hero-content { position: relative; z-index: 2; max-width: 660px; }
+    .hero-eyebrow { display: block; color: var(--white); font-size: 12px; font-weight: 700; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.12em; opacity: 0.75; }
+    .eyebrow-rest { display: inline; }
+    .hero h1 { font-family: var(--font-display); font-size: clamp(30px, 4.5vw, 54px); font-weight: 700; color: var(--white); line-height: 1.14; margin-bottom: 22px; }
+    .hero h1 .accent { color: var(--cyan); }
+    .hero .hero-sub { font-size: clamp(15px, 1.8vw, 19px); color: rgba(255,255,255,0.78); line-height: 1.6; margin-bottom: 40px; }
+    .hero-buttons { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 52px; }
+    .hero-cats { display: flex; flex-wrap: wrap; gap: 9px; }
+    .hero-cat { display: inline-flex; align-items: center; gap: 7px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.88); font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: 50px; text-decoration: none; transition: all var(--transition); white-space: nowrap; }
+    @media (max-width: 640px) {
+      .hero-cats { display: grid; grid-template-columns: 1fr 1fr; }
+      .hero-cat { justify-content: flex-start; }
+      .eyebrow-rest { display: block; }
+      .info-list { grid-template-columns: 1fr; }
+    }
+    .hero-cat:hover { background: rgba(0,176,240,0.18); border-color: rgba(0,176,240,0.4); color: var(--cyan); }
+
+    /* PARCEIROS */
+    .parceiros-section { background: var(--white); padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .parceiros-label { text-align: center; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 28px; }
+    .parceiros-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
+
+    @property --beam-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes beam-spin { to { --beam-angle: 360deg; } }
+
+    .insurer-badge {
+      position: relative; isolation: isolate;
+      display: flex; align-items: center; justify-content: center;
+      padding: 22px 36px; border-radius: var(--radius-md);
+      background: var(--white);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .insurer-badge::before {
+      content: '';
+      position: absolute; inset: -2px; z-index: 0;
+      border-radius: calc(var(--radius-md) + 2px);
+      background: conic-gradient(
+        from var(--beam-angle),
+        transparent 0%, transparent 68%,
+        rgba(0,176,240,0.55) 76%,
+        rgba(0,212,255,0.9)  82%,
+        rgba(0,176,240,0.55) 88%,
+        transparent 96%, transparent 100%
+      );
+      animation: beam-spin 2.8s linear infinite;
+    }
+    .insurer-badge::after {
+      content: '';
+      position: absolute; inset: 1.5px; z-index: 1;
+      border-radius: calc(var(--radius-md) - 1px);
+      background: var(--white);
+    }
+    .insurer-badge img { position: relative; z-index: 2; height: 120px; width: auto; max-width: 220px; object-fit: contain; display: block; }
+    .insurer-badge:hover { transform: scale(1.04); box-shadow: 0 0 24px rgba(0,176,240,0.25); }
+
+    .insurer-badge:nth-child(1)::before { animation-delay:  0s;    }
+    .insurer-badge:nth-child(2)::before { animation-delay: -0.35s; }
+    .insurer-badge:nth-child(3)::before { animation-delay: -0.70s; }
+    .insurer-badge:nth-child(4)::before { animation-delay: -1.05s; }
+    .insurer-badge:nth-child(5)::before { animation-delay: -1.40s; }
+    .insurer-badge:nth-child(6)::before { animation-delay: -1.75s; }
+    .insurer-badge:nth-child(7)::before { animation-delay: -2.10s; }
+    .insurer-badge:nth-child(8)::before { animation-delay: -2.45s; }
+
+    /* STATS */
+    .stats-section { background: linear-gradient(140deg, var(--navy) 0%, var(--blue) 100%); padding: 96px 0; position: relative; overflow: hidden; }
+    .stats-section::before { content: ''; position: absolute; inset: 0; background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
+    .stats-section .section-title { color: var(--white); }
+    .stats-section .section-sub { color: rgba(255,255,255,0.7); }
+    .stats-section .section-badge { background: rgba(0,176,240,0.18); border-color: rgba(0,176,240,0.35); }
+    .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .stat-card { text-align: center; background: rgba(255,255,255,0.07); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-md); overflow: hidden; transition: background var(--transition), box-shadow var(--transition), transform var(--transition); }
+    .stat-card:hover { background: rgba(255,255,255,0.12); box-shadow: 0 12px 40px rgba(0,0,0,0.25); transform: translateY(-3px); }
+    .stat-card-img { width: 100%; height: 240px; object-fit: cover; display: block; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .stat-card-body { padding: 28px 32px 32px; }
+    .stat-number { display: block; font-family: var(--font-display); font-size: clamp(40px, 5vw, 60px); font-weight: 700; color: var(--cyan); line-height: 1.05; margin-bottom: 8px; }
+    .stat-label { font-size: 14px; color: rgba(255,255,255,0.8); font-weight: 500; line-height: 1.5; }
+
+    /* SERVIÇOS */
+    .servicos-section { background: var(--light); padding: 96px 0; }
+    .servicos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .servico-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 28px 22px 22px; display: flex; flex-direction: column; gap: 8px; transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition); }
+    .servico-card:hover { border-color: var(--cyan); box-shadow: 0 8px 32px rgba(0,176,240,0.1); transform: translateY(-3px); }
+    .servico-icon { font-size: 30px; line-height: 1; }
+    .servico-name { font-family: var(--font-display); font-size: 14.5px; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .servico-desc { font-size: 13px; color: var(--muted); line-height: 1.55; flex: 1; }
+    .servico-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12.5px; font-weight: 600; color: var(--cyan); text-decoration: none; margin-top: 6px; transition: gap var(--transition); }
+    .servico-link:hover { gap: 9px; color: #0097d4; }
+    .servico-link::after { content: '→'; }
+
+    /* POR QUE DRONNE */
+    .why-section { background: var(--navy); padding: 96px 0; position: relative; overflow: hidden; }
+    .why-section::before { content: ''; position: absolute; right: -120px; top: -120px; width: 500px; height: 500px; border-radius: 50%; background: rgba(0,176,240,0.04); }
+    .why-section .section-title { color: var(--white); }
+    .why-section .section-sub { color: rgba(255,255,255,0.58); margin-bottom: 56px; }
+    .why-grid { display: grid; grid-template-columns: 1fr; gap: 18px; position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+    .why-card { display: flex; flex-direction: column; align-items: flex-start; text-align: left; padding: 36px 36px; border: 1px solid rgba(255,255,255,0.09); border-radius: var(--radius-md); background: rgba(255,255,255,0.03); transition: background var(--transition), border-color var(--transition), transform var(--transition); }
+    .why-card:hover { background: rgba(0,176,240,0.07); border-color: rgba(0,176,240,0.28); transform: translateX(4px); }
+    .why-icon { font-size: 44px; display: block; margin-bottom: 16px; line-height: 1; }
+    .why-title { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--white); margin-bottom: 14px; }
+    .why-text { font-size: 15px; color: rgba(255,255,255,0.68); line-height: 1.7; flex: 1; }
+
+    /* DEPOIMENTOS — CARROSSEL */
+    .depoimentos-section { background: var(--light); padding: 96px 0; }
+    .carousel-outer { position: relative; padding: 0 44px; }
+    .carousel-wrapper { overflow: hidden; }
+    .carousel-track { display: flex; gap: 18px; transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94); will-change: transform; }
+    .depoimento-card { flex: 0 0 calc(50% - 9px); min-width: 0; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 32px 26px; display: flex; flex-direction: column; transition: box-shadow var(--transition); }
+    .depoimento-card:hover { box-shadow: var(--shadow-md); }
+    .carousel-ctrl { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--border); cursor: pointer; display: flex; align-items: center; justify-content: center; background: var(--white); box-shadow: var(--shadow-sm); color: var(--navy); transition: all var(--transition); z-index: 2; flex-shrink: 0; }
+    .carousel-ctrl:hover { background: var(--cyan); color: var(--white); border-color: var(--cyan); }
+    .carousel-ctrl.prev { left: 0; }
+    .carousel-ctrl.next { right: 0; }
+    .carousel-ctrl svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 28px; }
+    .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; transition: all var(--transition); padding: 0; }
+    .carousel-dot.active { background: var(--cyan); width: 24px; border-radius: 4px; }
+    .depoimento-stars { color: #F59E0B; font-size: 17px; letter-spacing: 2px; margin-bottom: 16px; }
+    .depoimento-text { font-size: 14px; color: #374151; line-height: 1.68; font-style: italic; flex: 1; margin-bottom: 24px; }
+    .depoimento-text::before { content: '"'; }
+    .depoimento-text::after  { content: '"'; }
+    .depoimento-author { display: flex; align-items: center; gap: 14px; }
+    .avatar { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--cyan)); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--white); flex-shrink: 0; font-family: var(--font-display); }
+    .author-info strong { display: block; font-size: 14px; font-weight: 700; color: var(--navy); }
+    .author-info span { font-size: 12px; color: var(--muted); }
+
+    /* CTA BANNER */
+    .cta-banner { background: linear-gradient(135deg, var(--cyan) 0%, #008ec2 100%); padding: 88px 0; text-align: center; position: relative; overflow: hidden; }
+    .cta-banner::before { content: ''; position: absolute; top: -60%; right: -8%; width: 420px; height: 420px; border-radius: 50%; background: rgba(255,255,255,0.07); }
+    .cta-banner::after { content: ''; position: absolute; bottom: -40%; left: -5%; width: 280px; height: 280px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .cta-banner-inner { position: relative; z-index: 1; }
+    .cta-banner h2 { font-family: var(--font-display); font-size: clamp(22px, 3.5vw, 38px); font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    .cta-banner p { font-size: clamp(14px, 1.8vw, 18px); color: rgba(255,255,255,0.88); margin-bottom: 32px; }
+
+    /* FORMULÁRIO */
+    .contato-section { background: var(--light); padding: 96px 0; }
+    .contato-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; align-items: stretch; background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-md); overflow: hidden; }
+    .contato-form-side { padding: 56px 48px; }
+    .form-wrapper-title { font-family: var(--font-display); font-size: clamp(22px, 2.8vw, 30px); font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .form-wrapper-sub { font-size: 14px; color: var(--muted); margin-bottom: 32px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+    .form-group label { font-size: 12.5px; font-weight: 600; color: var(--navy); }
+    .form-group input, .form-group select, .form-group textarea { padding: 12px 16px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 14px; color: var(--navy); background: var(--white); transition: border-color var(--transition), box-shadow var(--transition); outline: none; width: 100%; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,176,240,0.1); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-error { font-size: 11.5px; color: var(--danger); display: none; }
+    .form-group.error input, .form-group.error select { border-color: var(--danger); }
+    .form-group.error .form-error { display: block; }
+    .btn-form { width: 100%; padding: 16px 28px; font-size: 15px; border-radius: var(--radius-sm); }
+    .success-msg { display: none; background: #F0FDF4; border: 1.5px solid #86EFAC; border-radius: var(--radius-md); padding: 28px; text-align: center; margin-top: 16px; }
+    .success-msg.show { display: block; }
+    .success-msg h4 { color: #15803D; font-size: 19px; font-weight: 700; margin-bottom: 8px; }
+    .success-msg p { color: #166534; font-size: 14px; line-height: 1.5; }
+
+    .contato-info-panel { background: linear-gradient(160deg, var(--navy) 0%, #0d3575 100%); padding: 56px 40px; display: flex; flex-direction: column; }
+    .contato-info-title { font-family: var(--font-display); font-size: clamp(20px, 2.5vw, 26px); font-weight: 700; color: var(--white); margin-bottom: 28px; text-align: center; }
+    .info-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 36px; }
+    .info-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); padding: 22px 16px; transition: border-color var(--transition), background var(--transition); }
+    .info-item:hover { border-color: var(--cyan); background: rgba(0,176,240,0.14); }
+    .info-icon { width: 52px; height: 52px; background: rgba(0,176,240,0.18); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .info-item-body strong { display: block; font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+    .info-item-body a { font-size: 14.5px; color: var(--cyan); text-decoration: none; font-weight: 600; display: block; transition: color var(--transition); line-height: 1.6; }
+    .info-item-body a:hover { color: var(--white); }
+    .info-item-body span { font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.7; font-weight: 500; }
+    .social-row { display: flex; gap: 10px; align-items: center; margin-top: auto; }
+    .social-row p { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.65); margin-right: 4px; }
+    .social-btn { width: 42px; height: 42px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--white); text-decoration: none; transition: all var(--transition); }
+    .social-btn:hover { background: var(--cyan); border-color: var(--cyan); transform: translateY(-2px); }
+
+    /* FOOTER */
+    .footer { background: #0e2d5e; padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+    .footer-logo-ph { width: 148px; height: 44px; border: 2px dashed rgba(0,176,240,0.3); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; background: rgba(255,255,255,0.04); margin-bottom: 18px; }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,0.48); line-height: 1.7; margin-bottom: 24px; max-width: 280px; }
+    .footer-social { display: flex; gap: 9px; }
+    .footer-social a { width: 36px; height: 36px; background: rgba(255,255,255,0.07); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 16px; text-decoration: none; transition: background var(--transition), transform var(--transition); }
+    .footer-social a:hover { background: var(--cyan); transform: translateY(-2px); }
+    .footer-col h4 { font-family: var(--font-display); font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.9); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 18px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a { font-size: 13.5px; color: rgba(255,255,255,0.48); text-decoration: none; transition: color var(--transition); }
+    .footer-col ul a:hover { color: var(--cyan); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .footer-bottom p { font-size: 12.5px; color: rgba(255,255,255,0.35); }
+
+    /* WHATSAPP FLOAT */
+    .whatsapp-float { position: fixed; bottom: 28px; right: 28px; z-index: 900; display: flex; align-items: center; justify-content: center; background: #25D366; text-decoration: none; width: 56px; height: 56px; border-radius: 50%; box-shadow: 0 4px 20px rgba(37,211,102,0.42); transition: all var(--transition); }
+    .whatsapp-float:hover { background: #1ab355; transform: translateY(-3px) scale(1.07); box-shadow: 0 8px 30px rgba(37,211,102,0.52); }
+    .whatsapp-float svg { width: 28px; height: 28px; fill: white; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .servicos-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) { .depoimento-card { flex: 0 0 calc(100% - 0px); } .contato-grid { grid-template-columns: 1fr; gap: 0; } .contato-form-side { padding: 40px 28px; } .contato-info-panel { padding: 40px 28px; border-radius: 0; } .footer-grid { grid-template-columns: 1fr 1fr; } .info-list { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .navbar-nav, .navbar-cta-wrap { display: none; } .hamburger { display: flex; } .stats-grid { grid-template-columns: unset; display: flex; flex-direction: row; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding: 0 12px 12px; -webkit-overflow-scrolling: touch; scrollbar-width: none; } .stats-grid::-webkit-scrollbar { display: none; } .stat-card { flex: 0 0 76vw; max-width: 300px; scroll-snap-align: start; } .stats-dots { display: flex; justify-content: center; gap: 7px; margin-top: 20px; } .stats-dots button { width: 8px; height: 8px; border-radius: 50%; border: none; background: rgba(255,255,255,0.3); cursor: pointer; padding: 0; transition: background var(--transition), transform var(--transition); } .stats-dots button.active { background: var(--cyan); transform: scale(1.3); } .stats-section { padding: 64px 0; } .footer-bottom { flex-direction: column; text-align: center; } .form-row { grid-template-columns: 1fr; } .parceiros-logos { display: grid; grid-template-columns: repeat(2, 1fr); } .insurer-badge { padding: 14px 10px; } .insurer-badge img { height: 90px; width: 100%; max-width: 100%; object-fit: contain; } }
+    @media (max-width: 430px) { .hero-buttons { flex-direction: column; } .hero-buttons .btn { width: 100%; } .servico-card { padding: 20px 14px 18px; } .servico-desc { display: none; } .why-card { padding: 28px 18px; }}
+    @media (max-width: 360px) { .container { padding: 0 12px; } .navbar-inner { padding: 0 12px; } .hero { padding: 100px 0 64px; } .servicos-grid { gap: 10px; } .why-grid { gap: 10px; }.depoimentos-grid { gap: 12px; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="#home" class="navbar-logo"><img src="mq4kh2ol-drone.png" alt="Dronne Corretora de Seguros" style="height:44px;width:auto;display:block;"></a>
+    <ul class="navbar-nav">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#servicos">Nossos Serviços</a></li>
+      <li><a href="#diferenciais">Por que a Dronne?</a></li>
+      <li><a href="#depoimentos">Depoimentos</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <div class="navbar-cta-wrap"><a href="#contato" class="btn btn-cyan">Faça uma Cotação</a></div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#home"         class="mobile-nav-link">Home</a></li>
+    <li><a href="#servicos"     class="mobile-nav-link">Nossos Serviços</a></li>
+    <li><a href="#diferenciais" class="mobile-nav-link">Por que a Dronne?</a></li>
+    <li><a href="#depoimentos"  class="mobile-nav-link">Depoimentos</a></li>
+    <li><a href="#contato"      class="mobile-nav-link">Contato</a></li>
+  </ul>
+  <a href="#contato" class="btn btn-cyan mobile-nav-link" style="width:100%;">Faça uma Cotação</a>
+</div>
+
+<section class="hero" id="home">
+  <!-- shield pattern — all share the same 3.5s animation, perfectly synchronized -->
+  <svg class="hero-shields-bg" viewBox="0 0 1440 860" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <!-- shield path centered at origin: M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z -->
+    <!-- Row 0 -->
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(80,72) scale(0.8)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(250,52) scale(1.1)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(440,82) scale(1.4)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(640,58) scale(0.75)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(848,78) scale(1.0)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1055,48) scale(0.85)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1248,72) scale(1.2)"/>
+    <!-- Row 1 -->
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(35,228) scale(1.0)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(215,212) scale(0.8)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(395,244) scale(1.35)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(600,222) scale(0.9)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(804,238) scale(1.1)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1012,218) scale(1.3)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1205,234) scale(0.75)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1400,225) scale(0.95)"/>
+    <!-- Row 2 -->
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(122,398) scale(1.4)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(320,415) scale(0.8)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(510,400) scale(1.1)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(704,420) scale(1.5)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(900,402) scale(0.85)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1100,416) scale(1.0)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1305,400) scale(1.35)"/>
+    <!-- Row 3 -->
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(55,565) scale(0.85)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(248,548) scale(1.1)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(430,578) scale(1.4)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(632,558) scale(0.8)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(834,568) scale(1.0)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1032,548) scale(0.9)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1235,562) scale(1.3)"/>
+    <!-- Row 4 -->
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(152,735) scale(1.0)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(350,755) scale(0.8)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(552,740) scale(1.4)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(752,725) scale(0.85)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(952,745) scale(1.15)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1155,730) scale(0.9)"/>
+    <path class="sh" d="M 0,-35 L 30,-22 L 30,5 Q 30,28 0,36 Q -30,28 -30,5 L -30,-22 Z" transform="translate(1375,750) scale(1.2)"/>
+  </svg>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Corretora Independente</div>
+      <h1>Nós não<br>somos a seguradora.<br><span class="accent">Nós somos os seus especialistas!</span></h1>
+      <p class="hero-sub">Analisamos o mercado e encontramos a seguradora com a melhor cobertura e o menor preço para o seu perfil.</p>
+      <div class="hero-buttons">
+        <a href="#contato" class="btn btn-cyan">Quero minha Cotação Grátis</a>
+        <a href="#servicos" class="btn btn-outline-white">Conheça nossos serviços</a>
+      </div>
+      <div class="hero-cats">
+        <a href="#contato" class="hero-cat"><span>🚗</span> Seguro Auto</a>
+        <a href="#contato" class="hero-cat"><span>❤️</span> Seguro Vida</a>
+        <a href="#contato" class="hero-cat"><span>🏭</span> Seguro Empresa</a>
+        <a href="#contato" class="hero-cat"><span>🏥</span> Plano de Saúde</a>
+        <a href="#contato" class="hero-cat"><span>🔑</span> Consórcio</a>
+        <a href="#contato" class="hero-cat"><span>➕</span> Outros Seguros</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="parceiros-section fade-in">
+  <div class="container">
+    <p class="parceiros-label">Parceiros das melhores<br>seguradoras do Brasil</p>
+    <div class="parceiros-logos">
+      <span class="insurer-badge"><img src="mq4jk80d-porto.png" alt="Porto Seguro"></span>
+      <span class="insurer-badge"><img src="mq4jk81p-azul.png" alt="Azul Seguros"></span>
+      <span class="insurer-badge"><img src="mq4jk81p-alian.png" alt="Allianz"></span>
+      <span class="insurer-badge"><img src="mq4jk81o-zurich.png" alt="Zurich"></span>
+      <span class="insurer-badge"><img src="mq4jk81w-hdi.png" alt="HDI"></span>
+      <span class="insurer-badge"><img src="mq4jk825-itaú.png" alt="Itaú Seguros"></span>
+      <span class="insurer-badge"><img src="mq4jk81v-Bradesco.png" alt="Bradesco Seguros"></span>
+      <span class="insurer-badge"><img src="mq4jk808-mapfree.png" alt="Mapfre"></span>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section fade-in">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:12px;">Experiência que faz a diferença</h2>
+    <p class="section-sub">Anos de mercado, atendimento dedicado e múltiplas seguradoras para garantir a melhor escolha para você.</p>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <img src="mq4knhp6-seguro-auto-106.jpg" alt="Seguro Auto Dronne" class="stat-card-img">
+        <div class="stat-card-body">
+          <span class="stat-number">+10</span>
+          <span class="stat-label">anos de experiência no mercado</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <img src="mq4koy39-comparadas.jpg" alt="Comparativo de seguradoras" class="stat-card-img">
+        <div class="stat-card-body">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">atendimento personalizado ao cliente</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <img src="mq4kozyd-atendimento.jpg" alt="Atendimento Dronne" class="stat-card-img">
+        <div class="stat-card-body">
+          <span class="stat-number">+8</span>
+          <span class="stat-label">seguradoras comparadas para você</span>
+        </div>
+      </div>
+    </div>
+    <div class="stats-dots" id="statsDots" style="display:none;">
+      <button class="active" data-idx="0"></button>
+      <button data-idx="1"></button>
+      <button data-idx="2"></button>
+    </div>
+  </div>
+</section>
+
+<section class="servicos-section fade-in" id="servicos">
+  <div class="container">
+    <h2 class="section-title">O que a Dronne oferece para você</h2>
+    <p class="section-sub">Uma carteira completa de seguros e proteções, com a melhor relação custo-benefício do mercado.</p>
+    <div class="servicos-grid">
+      <div class="servico-card"><span class="servico-icon">🚗</span><div class="servico-name">Seguro Auto</div><div class="servico-desc">Proteja seu veículo contra roubo, colisão, danos a terceiros e fenômenos naturais. Comparamos as melhores opções para o seu perfil.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🏍️</span><div class="servico-name">Seguro Moto</div><div class="servico-desc">Cobertura completa para motos com assistência 24h, proteção contra roubo e responsabilidade civil com terceiros.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🏠</span><div class="servico-name">Seguro Imóvel</div><div class="servico-desc">Residencial ou comercial — proteja seu imóvel contra incêndio, danos elétricos, vendaval e outros riscos com custo acessível.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">❤️</span><div class="servico-name">Seguro Vida</div><div class="servico-desc">Garanta o futuro de quem você ama com coberturas de morte natural, acidental, invalidez e doenças graves.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🏢</span><div class="servico-name">Seguro Condomínio</div><div class="servico-desc">Proteção completa para condomínios residenciais e comerciais: estrutura, equipamentos coletivos e responsabilidade civil.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🚚</span><div class="servico-name">Seguro Transporte de Carga</div><div class="servico-desc">Mercadorias protegidas durante o transporte rodoviário, aéreo ou marítimo, em território nacional e internacional.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🏭</span><div class="servico-name">Seguro Empresarial</div><div class="servico-desc">Patrimônio da sua empresa protegido: equipamentos, estoque, instalações e responsabilidade civil em um único produto.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">✈️</span><div class="servico-name">Seguro Viagem</div><div class="servico-desc">Viaje tranquilo com cobertura de emergências médicas, cancelamento de voos, extravio de bagagem e assistência no exterior.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🌾</span><div class="servico-name">Seg. Equipamentos e Máquinas Agrícolas</div><div class="servico-desc">Cobertura especializada para tratores, colhedoras e implementos agrícolas contra danos mecânicos e roubo no campo.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">⚖️</span><div class="servico-name">Seguro de Responsabilidade Civil</div><div class="servico-desc">Proteja sua empresa ou pessoa física de indenizações por danos corporais ou materiais causados involuntariamente a terceiros.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">👥</span><div class="servico-name">Seguro de Vida em Grupo</div><div class="servico-desc">Benefício corporativo acessível: cobertura coletiva de vida para seus colaboradores com excelente custo-benefício.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🔑</span><div class="servico-name">Seguro Fiança (Aluguel)</div><div class="servico-desc">Substitui o fiador ou caução no contrato de aluguel, protegendo locador e locatário de inadimplência sem burocracia.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">📋</span><div class="servico-name">Seguro Garantia e Obrigações</div><div class="servico-desc">Garanta o cumprimento de contratos, licitações e obrigações legais com apólices das principais seguradoras do mercado.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🚲</span><div class="servico-name">Seguro para Bike</div><div class="servico-desc">Proteção completa para sua bicicleta convencional ou elétrica: roubo, furto, danos acidentais e responsabilidade civil.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🩺</span><div class="servico-name">Seguro RC Profissional</div><div class="servico-desc">Para médicos, engenheiros, contadores, advogados e profissionais liberais. Proteção contra erros, omissões e responsabilidade.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">☀️</span><div class="servico-name">Seguro Equipamentos Fotovoltaicos</div><div class="servico-desc">Proteja seu investimento em energia solar contra danos, roubo e defeitos, garantindo o retorno financeiro do sistema.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">📱</span><div class="servico-name">Seguro Celular e Notebook</div><div class="servico-desc">Cobertura para smartphones e notebooks contra quebra acidental, roubo, furto e danos por líquidos ou elétricos.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🎪</span><div class="servico-name">Seguro Evento</div><div class="servico-desc">Festas, shows, feiras e eventos corporativos protegidos contra cancelamento, danos à estrutura e responsabilidade civil.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🏥</span><div class="servico-name">Plano de Saúde PF e PJ</div><div class="servico-desc">Compare os melhores planos individuais, familiares e empresariais com a melhor cobertura para o seu orçamento.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🦷</span><div class="servico-name">Plano Odontológico</div><div class="servico-desc">Planos odontológicos individuais e empresariais com ampla rede credenciada em Campinas e região.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+      <div class="servico-card"><span class="servico-icon">🏡</span><div class="servico-name">Consórcio</div><div class="servico-desc">Realize seus objetivos — imóvel, veículo ou serviços — sem juros, com as melhores administradoras do mercado.</div><a href="#contato" class="servico-link">Saiba mais</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section fade-in" id="diferenciais">
+  <div class="container">
+    <h2 class="section-title">Por que a Dronne?</h2>
+    <p class="section-sub">Nossa missão é encontrar a melhor proteção para você, sem complicação.</p>
+    <div class="why-grid">
+      <div class="why-card"><span class="why-icon">🔍</span><div class="why-title">Analisamos o mercado</div><p class="why-text">Comparamos as melhores opções das principais seguradoras do Brasil para encontrar a cobertura ideal para o seu perfil e orçamento, sem que você precise fazer nada.</p></div>
+      <div class="why-card"><span class="why-icon">🤝</span><div class="why-title">Somos seus especialistas</div><p class="why-text">Não somos a seguradora — somos quem trabalha por você. Nossa equipe está do seu lado na contratação, na renovação e principalmente na hora do sinistro.</p></div>
+      <div class="why-card"><span class="why-icon">💰</span><div class="why-title">Melhor custo-benefício</div><p class="why-text">Encontramos a cobertura ideal pelo menor preço, sem abrir mão da qualidade. Você paga justo, fica bem protegido e tem quem cuide de tudo para você.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="depoimentos-section fade-in" id="depoimentos">
+  <div class="container">
+    <h2 class="section-title">O que nossos clientes dizem</h2>
+    <p class="section-sub">Mais de 10 anos cuidando de quem confia na Dronne em Campinas e região.</p>
+    <div class="carousel-outer">
+      <button class="carousel-ctrl prev" id="depPrev" aria-label="Depoimento anterior">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="carousel-wrapper">
+        <div class="carousel-track" id="depTrack">
+          <div class="depoimento-card"><div class="depoimento-stars">★★★★★</div><p class="depoimento-text">Sempre tive dificuldade de entender seguro de carro, mas a Dronne explicou tudo com paciência e me encontrou um plano muito melhor do que eu tinha antes, com um preço bem menor. Recomendo demais!</p><div class="depoimento-author"><div class="avatar">MR</div><div class="author-info"><strong>Marcos Rodrigues</strong><span>Seguro Auto · Campinas, SP</span></div></div></div>
+          <div class="depoimento-card"><div class="depoimento-stars">★★★★★</div><p class="depoimento-text">Contratei o plano de saúde empresarial para minha equipe pela Dronne e foi tudo muito tranquilo. Eles compararam várias opções e conseguimos uma cobertura excelente dentro do nosso orçamento.</p><div class="depoimento-author"><div class="avatar">AC</div><div class="author-info"><strong>Ana Cristina Melo</strong><span>Plano de Saúde PJ · Campinas, SP</span></div></div></div>
+          <div class="depoimento-card"><div class="depoimento-stars">★★★★★</div><p class="depoimento-text">Quando meu estabelecimento foi danificado por uma tempestade, a Dronne me acompanhou em todo o processo de sinistro. Eles lutaram pelo meu direito junto à seguradora. Atendimento nota 10!</p><div class="depoimento-author"><div class="avatar">FS</div><div class="author-info"><strong>Fábio Souza</strong><span>Seguro Empresarial · Campinas, SP</span></div></div></div>
+          <div class="depoimento-card"><div class="depoimento-stars">★★★★★</div><p class="depoimento-text">Indiquei a Dronne para toda minha família. Eles negociam direto com as seguradoras e conseguem preços que você não acha em nenhum comparador online. Fiz seguro de imóvel e fiquei muito satisfeita!</p><div class="depoimento-author"><div class="avatar">LP</div><div class="author-info"><strong>Luciana Pereira</strong><span>Seguro Imóvel · Campinas, SP</span></div></div></div>
+          <div class="depoimento-card"><div class="depoimento-stars">★★★★★</div><p class="depoimento-text">O atendimento da Dronne é diferenciado. Eles me ligaram antes do vencimento para reavaliar minha apólice e ainda conseguiram uma cobertura maior com mensalidade menor. Isso é trabalhar por você!</p><div class="depoimento-author"><div class="avatar">RN</div><div class="author-info"><strong>Roberto Nunes</strong><span>Seguro Empresarial · Campinas, SP</span></div></div></div>
+        </div>
+      </div>
+      <button class="carousel-ctrl next" id="depNext" aria-label="Próximo depoimento">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+    <div class="carousel-dots" id="depDots"></div>
+  </div>
+</section>
+
+<section class="cta-banner fade-in">
+  <div class="cta-banner-inner container">
+    <h2>Proteja o que mais importa para você.</h2>
+    <p>Faça uma simulação grátis agora e descubra a melhor proteção para o seu perfil.</p>
+    <a href="#contato" class="btn btn-white">Quero minha Cotação</a>
+  </div>
+</section>
+
+<section class="contato-section fade-in" id="contato">
+  <div class="container">
+    <div class="contato-grid">
+      <div class="contato-form-side">
+        <h3 class="form-wrapper-title">Vamos cotar seu seguro agora?</h3>
+        <p class="form-wrapper-sub">Preencha o formulário e nossa equipe retornará em até 2 horas úteis.</p>
+        <form id="cotacaoForm" novalidate>
+          <div class="form-row">
+            <div class="form-group" id="grp-nome">
+              <label for="nome">Nome completo *</label>
+              <input type="text" id="nome" name="nome" placeholder="Seu nome completo" autocomplete="name">
+              <span class="form-error">Por favor, informe seu nome completo.</span>
+            </div>
+            <div class="form-group" id="grp-tel">
+              <label for="telefone">WhatsApp / Telefone *</label>
+              <input type="tel" id="telefone" name="telefone" placeholder="(19) 9 0000-0000" autocomplete="tel">
+              <span class="form-error">Por favor, informe um telefone válido.</span>
+            </div>
+          </div>
+          <div class="form-group" id="grp-seg">
+            <label for="seguro">Tipo de seguro *</label>
+            <select id="seguro" name="seguro">
+              <option value="">Selecione o produto desejado</option>
+              <option>Seguro Auto</option><option>Seguro Moto</option><option>Seguro Imóvel</option><option>Seguro Vida</option><option>Seguro Condomínio</option><option>Seguro Transporte de Carga</option><option>Seguro Empresarial</option><option>Seguro Viagem</option><option>Seguro de Equipamentos e Máquinas Agrícolas</option><option>Seguro de Responsabilidade Civil</option><option>Seguro de Vida em Grupo</option><option>Seguro Fiança (Aluguel)</option><option>Seguro Garantia e Obrigações</option><option>Seguro para Bike</option><option>Seguro de Responsabilidade Civil Profissional</option><option>Seguro Equipamentos Fotovoltaicos</option><option>Seguro Celular e Notebook</option><option>Seguro Evento</option><option>Plano de Saúde PF</option><option>Plano de Saúde PJ</option><option>Plano Odontológico</option><option>Consórcio</option><option>Outro — descrever na mensagem</option>
+            </select>
+            <span class="form-error">Por favor, selecione um produto.</span>
+          </div>
+          <div class="form-group">
+            <label for="mensagem">Mensagem (opcional)</label>
+            <textarea id="mensagem" name="mensagem" placeholder="Conte-nos um pouco mais sobre o que você precisa..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-cyan btn-form">Solicitar Cotação Grátis →</button>
+        </form>
+        <div class="success-msg" id="successMsg">
+          <h4>✅ Solicitação recebida!</h4>
+          <p>Obrigado! Estamos redirecionando você para nosso WhatsApp para agilizar o seu atendimento...</p>
+        </div>
+      </div>
+      <div class="contato-info-panel">
+        <h3 class="contato-info-title">Fale com a Dronne</h3>
+        <div class="info-list">
+          <div class="info-item"><div class="info-icon">📱</div><div class="info-item-body"><strong>WhatsApp</strong><a href="https://wa.me/5519953210821" target="_blank" rel="noopener">(19) 9 5321-0821</a></div></div>
+          <div class="info-item"><div class="info-icon">📞</div><div class="info-item-body"><strong>Telefone</strong><a href="tel:+551932350058">(19) 3235-0058</a></div></div>
+          <div class="info-item"><div class="info-icon">📍</div><div class="info-item-body"><strong>Endereço</strong><span>Rua João da Cruz e Souza, 48<br>Jardim Chapadão<br>Campinas — SP<br>CEP 13070-060</span></div></div>
+          <div class="info-item"><div class="info-icon">🕒</div><div class="info-item-body"><strong>Horário</strong><span>Seg a Sex: 8h às 18h<br>Sáb: 8h às 12h</span></div></div>
+        </div>
+        <div class="social-row">
+          <p>Siga a Dronne:</p>
+          <a href="#" class="social-btn" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+              <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor"/>
+            </svg>
+          </a>
+          <a href="#" class="social-btn" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="mq4kh2ol-drone.png" alt="Dronne Corretora de Seguros" style="height:52px;width:auto;display:block;margin-bottom:18px;filter:brightness(0) invert(1);">
+        <p class="footer-desc">Corretora independente de seguros e negócios em Campinas, SP. Encontramos a melhor cobertura pelo menor preço para o seu perfil.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="white" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.2" stroke="white" stroke-width="1.8"/>
+              <circle cx="17.5" cy="6.5" r="1.1" fill="white"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#servicos">Nossos Serviços</a></li>
+          <li><a href="#diferenciais">Por que a Dronne</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#contato">Contato</a></li>
+          <li><a href="#">Política de Privacidade</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="https://wa.me/5519953210821" target="_blank" rel="noopener">(19) 9 5321-0821</a></li>
+          <li><a href="tel:+551932350058">(19) 3235-0058</a></li>
+          <li><a href="#" style="font-size:12.5px;line-height:1.6;display:block;color:rgba(255,255,255,0.48)">Rua João da Cruz e Souza, 48<br>Jardim Chapadão · Campinas, SP</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Dronne Corretora de Seguros e Negócios. Todos os direitos reservados.</p>
+      <p>Campinas, SP</p>
+    </div>
+  </div>
+</footer>
+
+<a href="https://wa.me/5519953210821?text=Olá!%20Vim%20pelo%20site%20da%20Dronne%20e%20gostaria%20de%20fazer%20uma%20cotação." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 16); }, { passive: true });
+
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const mobileMenu   = document.getElementById('mobileMenu');
+  hamburgerBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburgerBtn.classList.toggle('active', isOpen);
+    hamburgerBtn.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => { mobileMenu.classList.remove('open'); hamburgerBtn.classList.remove('active'); });
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  const telInput = document.getElementById('telefone');
+  telInput.addEventListener('input', () => {
+    let d = telInput.value.replace(/\D/g, '').slice(0, 11);
+    if (d.length > 10)      d = d.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+    else if (d.length > 6)  d = d.replace(/^(\d{2})(\d{4,5})(\d*)$/, '($1) $2-$3');
+    else if (d.length > 2)  d = d.replace(/^(\d{2})(\d*)$/, '($1) $2');
+    telInput.value = d;
+  });
+
+  // CARROSSEL DEPOIMENTOS
+  (function() {
+    const track   = document.getElementById('depTrack');
+    const prevBtn = document.getElementById('depPrev');
+    const nextBtn = document.getElementById('depNext');
+    const dotsEl  = document.getElementById('depDots');
+    const cards   = Array.from(track.children);
+    let cur = 0, autoTimer;
+
+    function perView() { return window.innerWidth >= 900 ? 2 : 1; }
+    function totalSlides() { return Math.max(1, cards.length - perView() + 1); }
+
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      for (let i = 0; i < totalSlides(); i++) {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot' + (i === cur ? ' active' : '');
+        d.setAttribute('aria-label', 'Depoimento ' + (i + 1));
+        d.addEventListener('click', () => { goTo(i); resetAuto(); });
+        dotsEl.appendChild(d);
+      }
+    }
+
+    function goTo(idx) {
+      const total = totalSlides();
+      cur = ((idx % total) + total) % total;
+      const gap = 18;
+      const cardW = cards[0].offsetWidth + gap;
+      track.style.transform = 'translateX(-' + (cur * cardW) + 'px)';
+      dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    }
+
+    function next() { goTo(cur + 1); }
+    function prev() { goTo(cur - 1); }
+
+    function startAuto() { autoTimer = setInterval(next, 5000); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+    prevBtn.addEventListener('click', () => { prev(); resetAuto(); });
+    nextBtn.addEventListener('click', () => { next(); resetAuto(); });
+
+    const outer = track.closest('.carousel-outer');
+    outer.addEventListener('mouseenter', () => clearInterval(autoTimer));
+    outer.addEventListener('mouseleave', startAuto);
+
+    let tx = 0;
+    track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = tx - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { diff > 0 ? next() : prev(); resetAuto(); }
+    }, { passive: true });
+
+    window.addEventListener('resize', () => {
+      cur = Math.min(cur, totalSlides() - 1);
+      buildDots(); goTo(cur);
+    });
+
+    buildDots(); startAuto();
+  })();
+
+  const form = document.getElementById('cotacaoForm');
+  const successMsg = document.getElementById('successMsg');
+  function setValidity(id, valid) { document.getElementById(id).classList.toggle('error', !valid); return valid; }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const nome   = document.getElementById('nome').value.trim();
+    const tel    = document.getElementById('telefone').value.trim();
+    const seguro = document.getElementById('seguro').value;
+    const msg    = document.getElementById('mensagem').value.trim();
+    const ok = setValidity('grp-nome', nome.length >= 2) & setValidity('grp-tel', tel.replace(/\D/g,'').length >= 10) & setValidity('grp-seg', seguro !== '');
+    if (!ok) return;
+    form.style.display = 'none';
+    successMsg.classList.add('show');
+    const waMsg = `Olá! Meu nome é *${nome}*.\n\nGostaria de solicitar uma cotação de *${seguro}*.\n\nTelefone: ${tel}${msg ? '\n\nInformações adicionais: ' + msg : ''}`;
+    setTimeout(() => { window.open(`https://wa.me/5519953210821?text=${encodeURIComponent(waMsg)}`, '_blank'); }, 1800);
+  });
+
+  // STATS CARROSSEL DOTS (mobile only)
+  (function() {
+    const grid = document.querySelector('.stats-grid');
+    const dotsWrap = document.getElementById('statsDots');
+    const dotBtns = Array.from(dotsWrap.querySelectorAll('button'));
+
+    function isMobile() { return window.innerWidth <= 768; }
+
+    function syncDots() {
+      if (!isMobile()) { dotsWrap.style.display = 'none'; return; }
+      dotsWrap.style.display = 'flex';
+      const cards = Array.from(grid.children);
+      if (!cards.length) return;
+      const cardW = cards[0].offsetWidth + 16; // card width + gap
+      const scrollLeft = grid.scrollLeft;
+      const idx = Math.round(scrollLeft / cardW);
+      dotBtns.forEach((b, i) => b.classList.toggle('active', i === idx));
+    }
+
+    grid.addEventListener('scroll', syncDots, { passive: true });
+    window.addEventListener('resize', syncDots);
+    dotBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cards = Array.from(grid.children);
+        const cardW = cards[0].offsetWidth + 16;
+        grid.scrollTo({ left: +btn.dataset.idx * cardW, behavior: 'smooth' });
+      });
+    });
+    syncDots();
+  })();
+</script>
+</body>
+</html>
